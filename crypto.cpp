@@ -45,7 +45,14 @@ public:
 
 int main()
 {
-    caeserCipher return 0;
+    caeserCipher *cipher = new caeserCipher;
+    char y_n;
+    cout << "Do you want to encode a new message? (y/n): ";
+    cin >> y_n;
+    bool choice = (y_n == 'y') ? true : (y_n == 'n') ? false
+                                                     : false;
+
+    return 0;
 }
 
 void autoDecode()
