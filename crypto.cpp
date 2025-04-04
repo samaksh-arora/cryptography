@@ -14,16 +14,20 @@ protected:
     string encode(const string &message)
     {
         string encodeMessage = message;
-        string alpha = "abcdefghijklmnopqrstuvwxyz";
-        string alphaCaps = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         int messageSize = encodeMessage.size();
         for (int i = 0; i < messageSize; i++)
         {
-            for (int j = 0; j < alpha.size(); j++)
-                if (encodeMessage[i] == alpha[j])
-                {
-                    encodeMessage[i] = alpha[(j + shiftValue) % 26];
-                }
+            int x = encodeMessage[i];
+            if (x >= 65 && x <= 90)
+            {
+                x = 'a' + (x - 'a' + shiftValue + 26) % 26;
+            }
+            else if (x >= 97 && x <= 122)
+            {
+                x = 'A' + (x - 'A' + shiftValue + 26) % 26;
+            }
+            char newLetter = x;
+            encodeMessage[i] = newLetter;
         }
         return encodeMessage;
     }
@@ -44,12 +48,12 @@ int main()
     caeserCipher return 0;
 }
 
-// void autoDecode()
-// {
-//     string message;
-//     cout << "Enter encoded message: ";
-//     cin >> message;
-//     for (int i; i < message.size(); i++)
-//     {
-//     }
-// }
+void autoDecode()
+{
+    string message;
+    cout << "Enter encoded message: ";
+    cin >> message;
+    for (int i; i < message.size(); i++)
+    {
+    }
+}
