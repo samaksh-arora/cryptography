@@ -41,6 +41,19 @@ public:
     {
         shiftValue = num;
     }
+    void setShiftValue (int value) {
+        if (value < 1 || value > 13) {
+            cout << "Shift value must be between 1 and 13. \n";
+        }
+    shiftValue = value;
+    }
+};
+
+class Rot13Cipher : public caesarCipher {
+public: 
+    Rot13Cipher() {
+        setShiftValue(13);
+    }
 };
 
 int main()
