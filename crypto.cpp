@@ -46,41 +46,53 @@ public:
 
 
 class Decoder{
-public:
-    /**void split(string message) {
-        vector<string> splitMessage;
-        string temp = "";
-        char alphabet[26] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-        for (int i=0; i < message.size(); i++){}
-            if (message[i]){
-
-            }
-            
-        }
-    }
-    **/
-    int in(char array[], int len, char find) {
-        for (int i=0; i<len; i++){
-            if (array[i] == find){
-                return i;
-            }
-        }
-        return -1;
-    }
-    void autoDecode(string inMessage)
-    {
-        char alphabet[26] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-        string message = inMessage;
-        for (int key; key < 26; key++)
-        {
-            for (int i; i < inMessage.size(); i++)
-                if (in(alphabet, 26, inMessage[i]) != -1) {
-                    message[i] = alphabet[i + key];
+    public:
+        /**void split(string message) {
+            vector<string> splitMessage;
+            string temp = "";
+            char alphabet[26] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+            for (int i=0; i < message.size(); i++){}
+                if (message[i]){
+    
                 }
-            cout << "Decoded: " << message << " with " << key << " key ";
+                
+            }
         }
-    }
-};
+        **/
+        int in(char array[], int len, char find) {
+            for (int i=0; i<len; i++){
+                if (array[i] == find){
+                    return i;
+                }
+            }
+            return -1;
+        }
+        void autoDecode(string inMessage)
+        {
+            char alphabet[26] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+            for (int i; i<inMessage.size(); i++) {
+                if (isupper(inMessage[i])) {
+                    inMessage[i] = tolower((inMessage[i]));
+                }
+                else {
+                    continue;
+                }
+            }
+            for (int key=1; key < 26; key++)
+            {
+                int index = 0;
+                string message = inMessage;
+                for (int i = 0; i < inMessage.size(); i++) {
+                    int messageIndex = in(alphabet, 26, inMessage[i]);
+                    index = messageIndex+key;
+                    if (messageIndex != -1) {
+                        message[i] = alphabet[index%26];
+                    }
+                }
+                cout << "Decoded: " << message << " with " << key << " key " << endl;
+            }
+        }
+    };
 
 
 int main()
@@ -92,12 +104,14 @@ int main()
     bool choice = (y_n == 'y') ? true : (y_n == 'n') ? false
                                                      : false;
 
-    return 0;
+
+    
     string message;
     cout << "Enter a message: ";
-    cin >> message;
+    getline(cin, message);
     Decoder decoder;
     decoder.autoDecode(message);
+                                                 
     
     return 0;
 }
