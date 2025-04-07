@@ -98,6 +98,7 @@ int main()
     cin >> message;
     Decoder decoder;
     decoder.autoDecode(message);
+    
     return 0;
 }
 
