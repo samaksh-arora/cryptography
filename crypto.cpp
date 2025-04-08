@@ -2,6 +2,7 @@
 #include <cctype>
 #include <string>
 #include <iomanip>
+#include <limits>
 
 using namespace std;
 
@@ -103,9 +104,7 @@ string autoDecode(const string &message, int shiftValue)
         decodeMessage[i] = newLetter;
     }
     return decodeMessage;
-}
-
-;
+};
 void menu()
 {
     cout << '\n'
