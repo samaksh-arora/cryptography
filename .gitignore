@@ -1,0 +1,5 @@
+output/
+crypto
+crypto.dSYM/
+*.out
+*.exe
