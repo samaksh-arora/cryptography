@@ -84,15 +84,22 @@ public:
     }
 };
 
+void menu()
+{
+    cout << setfill('-') << setw(9) << "WElCOME TO THE CIPHER PROGRAM FOR GUILD 2" << setfill('-') << setw(9) << endl;
+    cout << left << "1: ENCODE" << endl;
+    cout << left << "2: DECODE" << endl;
+    cout << left << "3: AUTO DECODER" << endl;
+    cout << left << "4: EXIT" << endl;
+}
 int main()
 {
     caeserCipher *cipher = nullptr;
-    char y_n;
-    cout << "Do you want to encode a new message? (y/n): ";
-    cin >> y_n;
-    bool choice = (y_n == 'y') ? true : (y_n == 'n') ? false
-                                                     : false;
-    while (choice)
+    int choice;
+    menu();
+    cout << "Enter Your Choice: ";
+    cin >> choice;
+    if (choice == 1)
     {
         string message;
         int value;
@@ -116,15 +123,58 @@ int main()
             }
         }
 
-        if (value != 13)
+        if (value == 13)
+        {
+            cipher = new Rot13Cipher();
+            cout << "Encoded message using Rot13cipher " << "(Shift Value " << cipher->getShiftValue() << ") : " << cipher->callEncode(message) << endl;
+        }
+        else if (value != 13)
         {
             cipher = new caeserCipher();
+            cipher->setShiftValue(value);
+            cout << "Encoded message using caesar cipher " << "(Shift Value " << cipher->getShiftValue() << ") : " << cipher->callEncode(message) << endl;
         }
-        cipher->setShiftValue(value);
-        cout << "Encoded message using caesar cipher " << "(Shift Value " << cipher->getShiftValue() << ") : " << cipher->callEncode(message);
-        break;
-    }
 
+        delete cipher;
+    }
+    if (choice == 2)
+    {
+        string message;
+        int value;
+        cout << "Enter Message to be decoded: ";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        getline(cin, message);
+        cout << "Guess correct Shift value (1-13) to decode message accordingly: ";
+        cin >> value;
+        while (true)
+        {
+            if (cin.fail() || value < 1 || value > 13)
+            {
+                cout << "Invalid input. Shift value must be between 1 and 13. Please try again: ";
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cin >> value;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        if (value == 13)
+        {
+            cipher = new Rot13Cipher();
+            cout << "Decoded message using Rot13cipher " << "(Shift Value " << cipher->getShiftValue() << ") : " << cipher->decode(message) << endl;
+        }
+        else if (value != 13)
+        {
+            cipher = new caeserCipher();
+            cipher->setShiftValue(value);
+            cout << "Decoded message using caesar cipher " << "(Shift Value " << cipher->getShiftValue() << ") : " << cipher->decode(message) << endl;
+        }
+
+        delete cipher;
+    }
     return 0;
 }
 
